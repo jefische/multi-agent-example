@@ -1,5 +1,5 @@
-import { model } from "../../models/ollama.js";
-// import { model } from "../../models/gemini.js";
+// import { model } from "../../models/ollama.js";
+import { model } from "../../models/gemini.js";
 import { arithmeticTools } from "./tools.js";
 
 // Augment the LLM with tools - the type of model can be adjusted above.

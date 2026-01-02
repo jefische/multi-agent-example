@@ -1,6 +1,7 @@
 import { SystemMessage, HumanMessage } from "@langchain/core/messages";
 import type { Intent } from "../../types/intents.js";
-import { model } from "../../models/ollama.js";
+// import { model } from "../../models/ollama.js";
+import { model } from "../../models/gemini.js";
 
 /**
  * Classify the user's request into exactly ONE of the following categories:

@@ -29,5 +29,8 @@ export async function runArithmeticAgent(
     modelResponse = await callLlm(messages);
   }
 
+  // Add final AI response (even if no tools were called)
+  messages = addMessages(messages, [modelResponse]);
+  
   return messages;
 }
