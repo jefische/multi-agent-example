@@ -1,12 +1,12 @@
 import type { ToolCall } from "@langchain/core/messages/tool";
-import { flightTools } from "./tools.js";
+import { flightToolsByName } from "./tools.js";
 
-export type FlightToolName = keyof typeof flightTools;
+export type FlightToolName = keyof typeof flightToolsByName;
 
 // Function to call a tool used ONLY by the manager agent
 export async function callTool(toolCall: ToolCall) {
   const name = toolCall.name as FlightToolName;
-  const tool = flightTools[name];
+  const tool = flightToolsByName[name];
 
   if (!tool) {
     throw new Error(`Unknown tool: ${toolCall.name}`);
