@@ -1,7 +1,7 @@
 // import { model } from "../../models/ollama.js";
 import { model } from "../../models/gemini.js";
-import { managerTools } from "./tools.js";
+import { flightTools } from "./tools.js";
 
 // Augment the LLM with tools - the type of model can be adjusted above.
-const tools = Object.values(managerTools);
-export const managerModel = model.bindTools(tools); // LLM instance with tools bound
+const tools = Object.values(flightTools);
+export const flightModel = model.bindTools(tools); // LLM instance with tools bound

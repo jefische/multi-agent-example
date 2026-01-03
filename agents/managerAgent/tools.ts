@@ -8,7 +8,9 @@ import * as z from "zod";
 export const managerTools = {
   searchFlights: tool(
     async ({ origin, destination, date, adults }) => {
-      return await runFlightAgent({ origin, destination, date, adults });
+      const prompt = `Find flights from ${origin} to ${destination} on ${date} for ${adults} adults`;
+      const messages = await runFlightAgent(prompt);
+      return messages.at(-1)?.content?.toString() ?? "No results found";
     },
     {
       name: "searchFlights",
