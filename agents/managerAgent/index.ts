@@ -13,7 +13,8 @@ type ManagerResult =
 export async function runManager(input: string): Promise<ManagerResult> {
   let messages: BaseMessage[] = [new HumanMessage(input)];
   let modelResponse = await callLlm(messages); // AIMessage (LLM response) content with text, may have tool_calls array
-  
+  console.log("-----------------------------------------------");
+  console.log(modelResponse);
   // Manager can call MULTIPLE tools and orchestrate them
   while (true) {
     if (!modelResponse.tool_calls?.length) break;

@@ -19,20 +19,33 @@ function parseDate(dateStr: string): string {
   const cleaned = dateStr.replace(/(\d+)(st|nd|rd|th)/gi, '$1');
 
   const currentYear = new Date().getFullYear();
+  const now = new Date();
 
   // First, try parsing with current year appended (handles "July 6", "July 6", etc.)
   const withYear = new Date(`${cleaned} ${currentYear}`);
   if (!isNaN(withYear.getTime())) {
     // If the date is in the past, use next year
-    if (withYear < new Date()) {
+    if (withYear < now) {
       withYear.setFullYear(currentYear + 1);
     }
     return withYear.toISOString().slice(0, 10);
   }
 
-  // Try parsing as-is (handles "July 6, 2025" or other full formats)
+  // Try parsing as-is (handles "July 6, 2026" or other full formats with explicit year)
   const parsed = new Date(cleaned);
   if (!isNaN(parsed.getTime())) {
+    // If the parsed date is in the past and doesn't seem to have an explicit year,
+    // adjust to current/next year
+    if (parsed < now) {
+      // Check if the original string contains a 4-digit year
+      const hasExplicitYear = /\b20\d{2}\b/.test(cleaned);
+      if (!hasExplicitYear) {
+        parsed.setFullYear(currentYear);
+        if (parsed < now) {
+          parsed.setFullYear(currentYear + 1);
+        }
+      }
+    }
     return parsed.toISOString().slice(0, 10);
   }
 
